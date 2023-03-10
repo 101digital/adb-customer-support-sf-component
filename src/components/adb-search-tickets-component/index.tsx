@@ -21,6 +21,7 @@ import {
   SortOrder,
 } from "../../common";
 import SyncSearchableModal from "../sync-searchable-modal";
+import NoTicketsMessage from "./components/no-tickets-message";
 
 interface ADBSearchTicketsProps {
   navigateToTicketDetails: (ticketId: string) => void;
@@ -90,13 +91,11 @@ const ADBSearchTicketsComponent: React.FC<ADBSearchTicketsProps> = ({
 
   useEffect(() => {
     return () => {
-      console.log("UNMOUNT");
       clearSearchedTicketsData();
     };
   }, []);
 
   useEffect(() => {
-    console.log("FIRING USEEFFECT");
     // TODO: get email from context
     getTickets("minh@101digital.io");
     // }, [searchedTicketsFilterBy, searchedTicketsSortBy, searchedTicketsPages]);
@@ -151,31 +150,37 @@ const ADBSearchTicketsComponent: React.FC<ADBSearchTicketsProps> = ({
             }}
           />
         </View>
-        <FlatList
-          ref={flatListRef}
-          style={styles.listWrapper}
-          data={searchedTickets.filter((n) => n.id.includes(searchedTicketId))}
-          renderItem={({ item }) => (
-            <TicketCard
-              key={item.id}
-              header={item.header}
-              status={item.status}
-              id={item.id}
-              createdDate={item.createdDate}
-              onPress={() => {
-                // setSearchedTicketId(item.id);
-                navigateToTicketDetails(item.id);
-              }}
-            />
-          )}
-          keyExtractor={(item) => item.id}
-          // onEndReached={() => {
-          //   console.log("EOL");
-          //   if (!isSearchedTicketsEndOfList) {
-          //     setSearchedTicketsPages(searchedTicketsPages + 1);
-          //   }
-          // }}
-        />
+        {!isLoadingSearchTickets && searchedTickets.length === 0 ? (
+          <NoTicketsMessage />
+        ) : (
+          <FlatList
+            ref={flatListRef}
+            style={styles.listWrapper}
+            data={searchedTickets.filter((n) =>
+              n.id.includes(searchedTicketId)
+            )}
+            renderItem={({ item }) => (
+              <TicketCard
+                key={item.id}
+                header={item.header}
+                status={item.status}
+                id={item.id}
+                createdDate={item.createdDate}
+                onPress={() => {
+                  // setSearchedTicketId(item.id);
+                  navigateToTicketDetails(item.id);
+                }}
+              />
+            )}
+            keyExtractor={(item) => item.id}
+            // onEndReached={() => {
+            //   console.log("EOL");
+            //   if (!isSearchedTicketsEndOfList) {
+            //     setSearchedTicketsPages(searchedTicketsPages + 1);
+            //   }
+            // }}
+          />
+        )}
         {/* {isLoadingSearchTickets && searchedTickets.length > 0 && (
           <ActivityIndicator color={colors.black} />
         )} */}
