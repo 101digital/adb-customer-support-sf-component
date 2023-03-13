@@ -377,9 +377,17 @@ const ADBCreateTicketDetailsComponent: React.FC<ICreateTicketDetails> = ({
 
       {/* WRONG FILE FORMAT MODAL */}
       <AlertModal
-        title="Sorry, the file you uploaded is not in the right format"
-        message="Please upload the file again in PDF, JPG, and JPEG."
-        btnLabel="Done"
+        title={
+          i18n.t(
+            "adb_ticketing.create_ticket_details_wrong_file_format_title"
+          ) ?? "Sorry, the file you uploaded is not in the right format"
+        }
+        message={
+          i18n.t(
+            "adb_ticketing.create_ticket_details_wrong_file_format_message"
+          ) ?? "Please upload the file again in PDF, JPG, JPEG and MP4."
+        }
+        btnLabel={i18n.t("adb_ticketing.done") ?? "Done"}
         onConfirmBtnPress={() => {
           setSelectWrongFileTypeModal(false);
         }}
@@ -389,9 +397,17 @@ const ADBCreateTicketDetailsComponent: React.FC<ICreateTicketDetails> = ({
 
       {/* WRONG FILE SIZE MODAL */}
       <AlertModal
-        title="Sorry, the file you uploaded is too big"
-        message="Please upload a file that is less than 25 MB."
-        btnLabel="Done"
+        title={
+          i18n.t(
+            "adb_ticketing.create_ticket_details_wrong_file_format_title"
+          ) ?? "Sorry, the file you uploaded is too big"
+        }
+        message={
+          i18n.t(
+            "adb_ticketing.create_ticket_details_wrong_file_format_message"
+          ) ?? "Please upload a file that is less than 10 MB."
+        }
+        btnLabel={i18n.t("adb_ticketing.done") ?? "Done"}
         onConfirmBtnPress={() => {
           setSelectWrongFileSizeModal(false);
         }}

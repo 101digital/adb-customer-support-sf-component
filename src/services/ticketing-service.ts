@@ -112,7 +112,7 @@ export class TicketingService {
     }
   };
 
-  // getAttachmentContent = async (id: string) => {
+  // getAttachmentContentBlob = async (id: string) => {
   //   if (this._ticketingClient) {
   //     const response = await this._ticketingClient.get(`data/v56.0/sobjects/ContentVersion/${id}/VersionData`);
   //     return response;

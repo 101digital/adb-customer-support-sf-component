@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import {
   StyleSheet,
   Text,
@@ -14,12 +14,13 @@ import DocumentPicker, {
 } from "react-native-document-picker";
 import { colors } from "../../../assets";
 
-const MAX_FILE_SIZE = 10000000;
+const MAX_FILE_SIZE = 25000000;
 const ALLOWED_FILE_TYPES = [
   "application/pdf",
   "image/jpeg",
   "image/jpg",
   "image/png",
+  "video/mp4",
 ];
 
 const deviceHeight =

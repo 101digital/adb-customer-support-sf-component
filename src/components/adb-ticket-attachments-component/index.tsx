@@ -1,11 +1,10 @@
-import React, { useContext, useEffect, useState, useRef } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { StyleSheet, View, Text, Image } from "react-native";
 import { ThemeContext } from "react-native-theme-component";
-// import { ThemeContext, useThemeFonts } from "react-native-theme-component";
 import { colors, fonts } from "../../assets";
-// import { TicketingContext } from "../../contexts";
 import { TicketingService } from "adb-customer-support-sf-component/src/services/ticketing-service";
 import PDFView from "react-native-view-pdf";
+import AttachmentVideoPlayer from "./components/AttachmentVideoPlayer";
 
 const ticketingInstance = TicketingService.instance();
 
@@ -19,7 +18,6 @@ const ADBTicketAttachmentsComponent: React.FC<ADBTicketAttachmentsProps> = ({
   attachmentName,
 }: ADBTicketAttachmentsProps) => {
   const { i18n } = useContext(ThemeContext);
-  // const { } = useContext(TicketingContext);
   const [content, setContent] = useState("");
 
   useEffect(() => {
@@ -40,6 +38,8 @@ const ADBTicketAttachmentsComponent: React.FC<ADBTicketAttachmentsProps> = ({
   }, []);
 
   const isPDF = attachmentName?.toUpperCase().includes(".PDF");
+  const isMP4 = attachmentName?.toUpperCase().includes(".MP4");
+  const isImage = !isPDF && !isMP4;
 
   return (
     <>
@@ -65,7 +65,10 @@ const ADBTicketAttachmentsComponent: React.FC<ADBTicketAttachmentsProps> = ({
               onError={(error) => console.log("Cannot render PDF", error)}
             />
           )}
-          {!isPDF && content?.length > 0 && (
+          {isMP4 && content?.length > 0 && (
+            <AttachmentVideoPlayer base64Content={content} />
+          )}
+          {isImage && content?.length > 0 && (
             <Image
               source={{ uri: `data:image/png;base64,${content}` }}
               resizeMode="contain"

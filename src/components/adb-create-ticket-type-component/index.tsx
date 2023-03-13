@@ -22,7 +22,7 @@ const TYPES = [
   "DuitNow Transfer",
   "DuitNow QR",
   "Debit Card",
-  "Agent Banking",
+  "Block Debit Card",
   "Transaction Disputes",
   "Fraud Cases",
   "Aeon Membership Plus (AMP)",
